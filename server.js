@@ -3,9 +3,9 @@ const http = require("http")
 
 const server = http.createServer((req, res) => {})
 
-server.listen(3000, () => {
-    console.log("Listening on port 3000...")
-})
+server.listen(process.env.PORT || 3000, function(){
+	console.log("Express server on port %d in %s mode", this.address().port, app.settings.env);
+});
 
 const webSocket = new Socket({ httpServer: server })
 
