@@ -1,4 +1,4 @@
-const webSocket = new WebSocket("ws://SERVER-IP-HERE:3000")
+const webSocket = new WebSocket("ws://127.0.0.1:3000")
 
 webSocket.onmessage = (event) => {
     handleSignallingData(JSON.parse(event.data))
@@ -24,6 +24,7 @@ function sendUsername() {
 }
 
 function sendData(data) {
+    console.log("sending username")
     data.username = username
     webSocket.send(JSON.stringify(data))
 }
@@ -51,10 +52,22 @@ function startCall() {
         let configuration = {
             iceServers: [
                 {
-                    "urls": ["stun:stun.l.google.com:19302", 
-                    "stun:stun1.l.google.com:19302", 
-                    "stun:stun2.l.google.com:19302"]
-                }
+                    "urls": [
+                      "stun:hk-turn1.xirsys.com"
+                    ]
+                  },
+                  {
+                    "username": "L4gfsy5vnVx_x2iGAyT4DJCo9RZk6z3UizVU1NLZJwsUWwfrD_ju2ZLVIrE3Ljf7AAAAAGWClQZ0aGVkcmhheDE0",
+                    "credential": "d3c1c040-9f07-11ee-bf53-0242ac120004",
+                    "urls": [
+                      "turn:hk-turn1.xirsys.com:80?transport=udp",
+                      "turn:hk-turn1.xirsys.com:3478?transport=udp",
+                      "turn:hk-turn1.xirsys.com:80?transport=tcp",
+                      "turn:hk-turn1.xirsys.com:3478?transport=tcp",
+                      "turns:hk-turn1.xirsys.com:443?transport=tcp",
+                      "turns:hk-turn1.xirsys.com:5349?transport=tcp"
+                    ]
+                  }
             ]
         }
 
@@ -104,4 +117,8 @@ let isVideo = true
 function muteVideo() {
     isVideo = !isVideo
     localStream.getVideoTracks()[0].enabled = isVideo
+}
+
+function leaveCall(){
+    location.reload()
 }

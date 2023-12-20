@@ -1,4 +1,4 @@
-const webSocket = new WebSocket("ws://SERVER-IP-HERE:3000")
+const webSocket = new WebSocket("ws://127.0.0.1:3000")
 
 webSocket.onmessage = (event) => {
     handleSignallingData(JSON.parse(event.data))
@@ -104,4 +104,8 @@ let isVideo = true
 function muteVideo() {
     isVideo = !isVideo
     localStream.getVideoTracks()[0].enabled = isVideo
+}
+
+function leaveCall(){
+    location.reload()
 }
